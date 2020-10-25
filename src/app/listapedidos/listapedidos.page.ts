@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GLOBAL } from '../global';
 import { ServiciosService } from '../service/servicios.service';
-import { ModalController, MenuController } from '@ionic/angular';
+import { ModalController, MenuController, ToastController } from '@ionic/angular';
 import { DetallepedidoPage } from '../detallepedido/detallepedido.page';
 import { Insomnia } from '@ionic-native/insomnia/ngx';
 import { FCM } from 'cordova-plugin-fcm-with-dependecy-updated/ionic';
@@ -16,6 +16,7 @@ export class ListapedidosPage implements OnInit {
   nombreneg="";
   listapedidos:any;
   audio:any;
+  audiox:any;
   nroregs=0;
   evx:Event;
   temporizador=45;
@@ -24,7 +25,8 @@ export class ListapedidosPage implements OnInit {
   nron=0;
   nroe=0;
   interv:any;
-  constructor(private menu:MenuController,private consultas:ServiciosService,private modalCtrl:ModalController,private insomnia:Insomnia) { }
+  hora="";
+  constructor(private menu:MenuController,private consultas:ServiciosService,private modalCtrl:ModalController,private insomnia:Insomnia,private toast:ToastController) { }
 
   ngOnInit() {
     this.insomnia.keepAwake().then(
@@ -44,7 +46,8 @@ export class ListapedidosPage implements OnInit {
       this.listapedidos=datos;
       this.ponefechahora();
       this.contadores();
-      
+      const ahora=new Date();
+      this.hora=ahora.getHours()+":"+ahora.getMinutes()+":"+ahora.getSeconds();
     });
     FCM.getToken().then(token => {
       console.log("token",token);
@@ -52,9 +55,37 @@ export class ListapedidosPage implements OnInit {
         console.log("tokenhacia BD: ",datos);
       })
      });
-    
+     FCM.onNotification().subscribe(data=>{
+      console.log("entra a onNotification al Ingresar");
+      this.alertallegada();
+      this.audiox.play();
+      this.refrescalista(this.evx,"no");
+      // this.llegopedido();
+      console.log("data de notif Ingreso: ",data);
+      
+      if(data.wasTapped){
+        console.log("notif tocada");
+        // this.llegopedido();
+      }
+    });
+    FCM.getInitialPushPayload().then(data=>{
+      console.log("payload en ingreso: ",data);
+    });
+    this.audiox = new Audio();
+        this.audiox.src = '../../assets/campana.mp3';
+        this.audiox.load();
+       
     this.automatico();
 
+  }
+  async alertallegada(){
+    const llega=await this.toast.create({
+      header:"Nuevo Pedido!",
+      message:"De un cliente",
+      duration:2000,
+      position:"middle"
+    });
+    await llega.present();
   }
   onViewdidEnter(){
     this.menu.close();
@@ -87,6 +118,8 @@ export class ListapedidosPage implements OnInit {
         // this.audio.loop=false;
       }
       this.contadores();
+      const ahora=new Date();
+      this.hora=ahora.getHours()+":"+ahora.getMinutes()+":"+ahora.getSeconds();
     });
   }
   contadores(){
