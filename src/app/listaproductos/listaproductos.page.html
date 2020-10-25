@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <!-- <ion-menu-button></ion-menu-button> -->
+      <ion-back-button text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>Productos:</ion-title>
+    <ion-buttons slot="end">
+      <ion-button class="btnnuevoprod" (click)="abreformnuevoprod()"><ion-icon name="add"></ion-icon></ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row *ngFor="let unprod of lista;let i=index" >
+      <ion-col size="8" (click)="editaproducto(unprod)">
+        <div class="titulo">{{unprod.nombre}}</div>
+        <span class="descripcion">{{unprod.descripcion}}</span>
+        <div class="precio">Bs.{{unprod.costo}}</div>
+        
+      </ion-col>
+      <ion-col size="4">
+        <div class="switch"><ion-toggle [checked]="unprod.bandera" (ionChange)="cambiaestado(unprod.id,$event)"></ion-toggle></div>
+        <ion-img src="{{urlimg+unprod.foto}}"></ion-img>
+      </ion-col >
+    </ion-row>
+    <div class="extras" *ngIf="extras.length>0">Extras</div>
+    <div class="listaextras">
+      <ion-row *ngFor="let unprod of extras;let j=index" >
+        <ion-col size="8" (click)="editaproducto(unprod)">
+          <div class="titulo">{{unprod.nombre}}</div>
+          <span class="descripcion">{{unprod.descripcion}}</span>
+          <div class="precio">Bs.{{unprod.costo}}</div>
+          
+        </ion-col>
+        <ion-col size="4">
+          <div class="switch"><ion-toggle [checked]="unprod.bandera" (ionChange)="cambiaestado(unprod.id,$event)"></ion-toggle></div>
+          <ion-img src="{{urlimg+unprod.foto}}"></ion-img>
+        </ion-col >
+      </ion-row>
+    </div>
+   
+    
+  </ion-grid>
+</ion-content>

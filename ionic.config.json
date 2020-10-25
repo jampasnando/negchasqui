@@ -1,5 +1,7 @@
 {
   "name": "negchasqui",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

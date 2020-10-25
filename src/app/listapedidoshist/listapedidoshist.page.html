@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>N {{nron}} - P {{nrop}} - D {{nrod}} - E {{nroe}}</ion-title>
+    <ion-buttons slot="end">
+      <label>HIST</label>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="refrescalista($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+<ion-grid>
+  <ion-row *ngFor="let unpedido of listapedidos" class="filapedido"   (click)="abrepedido(unpedido)"  [ngStyle]="{'background':unpedido.color}">
+    <ion-col size="9">
+      <div class="unpedido">{{unpedido.hora}} <span class="nomcli">{{unpedido.nombrecli}}</span></div>
+      <div class="celular">{{unpedido.fecha}}  <ion-icon name="call"></ion-icon>{{unpedido.celular}}</div>
+
+    </ion-col>
+    <ion-col size="3">
+      <div class="precio">Bs.{{unpedido.total}}</div>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+</ion-content>

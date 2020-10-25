@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title *ngIf="detalleunpedido.length>0">{{horareg}} {{detalleunpedido[0].nombrecli}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button class="cierramodal" (click)="cierraunpedido()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<div  [ngStyle]="{'background':micolor}" class="div1">
+<ion-grid class="listax">
+  <ion-row *ngFor="let unpedido of detalleunpedido">
+    <ion-col size="9">
+      <div class="unpedido">{{unpedido.cantidad}} {{unpedido.nombre}}</div>
+      <div class="cantidad">c/u:Bs.{{unpedido.preciou}}</div>
+
+    </ion-col>
+    <ion-col size="3">
+      <div class="precio">Bs.{{unpedido.cantidad*unpedido.preciou}}</div>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+<ion-grid>
+  <ion-row class="filatotal">
+    <ion-col size="6"></ion-col>
+    <ion-col class="total" size="6">
+      Total: Bs.{{total}}
+    </ion-col>
+  </ion-row>
+</ion-grid>
+<ion-textarea rows="2" class="instrucciones" value="{{unpedido.instrucciones}}"></ion-textarea>
+<hr>
+<div class="detalle">Detalles de envío: <ion-icon name="arrow-redo" color="success" size="large" (click)="reenviainfo(detalleunpedido[0])"></ion-icon></div>
+<ion-list *ngIf="detalleunpedido.length>0">
+  <ion-item>
+    <ion-label position="floating" class="detallecli">Nombre y apellido:</ion-label>
+    <ion-input value="{{detalleunpedido[0].nombrecli}}" readonly></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label class="detallecli"  position="floating">Celular:</ion-label>
+    <span class="selectable">{{detalleunpedido[0].celular}} </span> <ion-icon name="logo-whatsapp" color="success" (click)="abreWhatsApp(detalleunpedido[0].celular)"></ion-icon>&nbsp;&nbsp;&nbsp;
+    <ion-label class="detallecli">&nbsp;&nbsp;  NIT o CI:</ion-label>
+    <span>{{detalleunpedido[0].nit}}</span>
+  </ion-item>
+  <ion-item>
+    <ion-label class="detallecli"  position="floating">Dirección:</ion-label>
+    <ion-textarea value="{{detalleunpedido[0].direccion}}" readonly></ion-textarea>
+  </ion-item>
+</ion-list>
+</div>
+</ion-content>
+<ion-footer>
+  <ion-grid class="estados">
+    <ion-row>
+      <ion-col>
+        <ion-button color="dark" expand="block" (click)="cambiaestado('anulado','gray')" size="small">X</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button color="light" expand="block" (click)="cambiaestado('pendiente','')" size="small">Pendiente</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button color="success" expand="block" (click)="cambiaestado('entregado','springgreen')" size="small">Entregado</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button color="warning" expand="full"  (click)="cambiaestado('proceso','gold')">Proceso</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button color="primary" expand="full" (click)="cambiaestado('despachado','lightskyblue')">Despachado</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

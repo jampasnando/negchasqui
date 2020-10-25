@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Editar Producto</ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="light" (click)="cierraeditar('no')">[Cerrar]</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="formulario">
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Nombre Pruducto:</ion-label>
+        <ion-input formControlName="nombre"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Descripcion:</ion-label>
+        <ion-textarea formControlName="descripcion" rows="4"></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label>Tipo:</ion-label>
+        <ion-radio-group formControlName="tipo">
+          
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-label>Principal</ion-label>
+                  <ion-radio value="Principal"></ion-radio>
+                </ion-item>
+              </ion-col>
+              <ion-col>
+                <ion-item>
+                  <ion-label>Extra</ion-label>
+                  <ion-radio value="Extra"></ion-radio>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          
+        </ion-radio-group>
+      </ion-item>
+      <ion-item>
+        <ion-label >Precio Bs.</ion-label>
+        <ion-input type="Number"  formControlName="precio"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label >Tiempo preparación(mins)</ion-label>
+        <ion-input type="Number"  formControlName="tiempo"></ion-input>
+      </ion-item>
+    </ion-list>
+  </form>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <span class="ocultar">
+          <input type="file" ng2FileSelect [uploader]="uploader" (onFileSelected)="subir($event)" #btnfile/>
+        </span>
+        
+        <ion-button (click)="btnfile.click()" color="warning">Elegir foto</ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col><ion-img src="{{url+nuevaimg}}"></ion-img></ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<ion-footer>
+  <ion-button expand="block" [disabled]="!formulario.valid" (click)="enviacambios()">Guardar Cambios</ion-button>
+</ion-footer>

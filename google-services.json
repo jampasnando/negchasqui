@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "694723363489",
+    "firebase_url": "https://negchasqui.firebaseio.com",
+    "project_id": "negchasqui",
+    "storage_bucket": "negchasqui.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:694723363489:android:f2f0dc6a6a258e836c66e0",
+        "android_client_info": {
+          "package_name": "com.sistembo.negchasqui"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "694723363489-sk27nu7f5appdg22g12vvt4ovv21shi5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9QgAyV5InSnMlBszKuPjnnulRpN5SoeE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "694723363489-sk27nu7f5appdg22g12vvt4ovv21shi5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

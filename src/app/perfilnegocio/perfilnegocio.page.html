@@ -1,0 +1,110 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <!-- <ion-menu-button></ion-menu-button> -->
+      <ion-back-button text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>Perfil del negocio</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<form [formGroup]="formulario">
+  <ion-list>
+    <ion-item>
+      <ion-label>Abriremos en nuestro horario</ion-label>
+      <ion-toggle formControlName="estado"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Nombre Negocio</ion-label>
+      <ion-input formControlName="nombre"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Direccion:</ion-label>
+      <ion-textarea formControlName="direccion" expand="full"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6">
+            <ion-item lines="none" class="fonos">
+              <ion-label position="floating">Celular Negocio</ion-label>
+              <ion-input formControlName="celular"></ion-input>
+              </ion-item>
+          </ion-col>
+          <ion-col size="6">
+            <ion-item lines="none">
+              <ion-label position="floating">Telf Resp.</ion-label>
+              <ion-input formControlName="telf"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+      <ion-item>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="6" class="fonos">
+              <ion-item lines="none">
+                <ion-label position="floating" type="number">Temporizador</ion-label>
+                <ion-input formControlName="temporizador"></ion-input>
+                </ion-item>
+            </ion-col>
+            
+            <ion-col size="6">
+              <ion-radio-group formControlName="textosobrefoto">
+                <span class="txtsobre">Texto sobre foto</span>
+                <ion-row>
+                  <ion-col size="6">
+                    <ion-item lines="none">
+                      <ion-label class="sino">Si</ion-label>
+                      <ion-radio value="si"></ion-radio>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-item lines="none">
+                      <ion-label class="sino">No</ion-label>
+                      <ion-radio value="no"></ion-radio>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+              </ion-radio-group>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+    </ion-item>
+    <ion-item>
+      <ion-label>Mostrar Tarifa</ion-label>
+      <ion-toggle formControlName="mostrartarifa"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Texto costo delivery</ion-label>
+      <ion-input formControlName="textocosto"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label >Hora Inicio</ion-label>
+      <ion-datetime displayFormat="HH:mm" minuteValues="0,15,30,45" formControlName="horaini"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label >Hora Cierre</ion-label>
+      <ion-datetime displayFormat="HH:mm" minuteValues="0,15,30,45" formControlName="horafin"></ion-datetime>
+    </ion-item>
+  </ion-list>
+</form>
+<div class="botones">
+  <div >
+    <span class="ocultar">
+      <input type="file" ng2FileSelect [uploader]="uploader" (onFileSelected)="subir($event)" #btnfile/>
+    </span>
+    
+    <ion-button (click)="btnfile.click()" color="warning" size="small">Elegir foto</ion-button>
+    
+  </div>
+  <div class="btnmap"><ion-button (click)="abremapa()" size="small" color="warning">UbicaciónMapa</ion-button></div>
+</div>
+<ion-img src="{{urlimg+nuevaimg}}" *ngIf="nuevaimg!='' && bandera!='video'"></ion-img>
+<video *ngIf="nuevaimg!='' && bandera=='video'" loop autoplay>
+  <source src="{{urlimg+nuevaimg}}" type="video/mp4">
+</video>
+<ion-button expand="block" [disabled]="!formulario.valid" (click)="guardacambios()">Guardar cambios</ion-button>
+</ion-content>

@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <!-- <ion-menu-button></ion-menu-button> -->
+      <ion-back-button text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>Reordenar Productos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+  <ion-reorder-group disabled="false" (ionItemReorder)="mueveprincipal($event)">
+    <ion-item *ngFor="let unprod of lista;let i=index">
+      <ion-label class="ion-text-wrap">
+        <h3><span class="elim" (click)="avisoelim(unprod.id)">X</span> {{unprod.nombre}}</h3>
+        <p>{{unprod.descripcion}}</p>
+        <h3>Bs.{{unprod.costo}}</h3>
+      </ion-label>
+      <ion-reorder></ion-reorder>
+    </ion-item>
+  </ion-reorder-group>
+  </ion-list>
+    <ion-button (click)="guardaprincipal()" expand="full" *ngIf="lista.length>0">Guardar orden principales</ion-button>
+    <div class="extras" *ngIf="extras.length>0">Extras</div>
+    <div class="listaextras">
+  <ion-list>
+      <ion-reorder-group disabled="false" (ionItemReorder)="mueveextra($event)">
+        <ion-item *ngFor="let unprod of extras;let i=index">
+          <ion-label class="ion-text-wrap">
+            <h3><span class="elim" (click)="avisoelim(unprod.id)">X</span> {{unprod.nombre}}</h3>
+            <p>{{unprod.descripcion}}</p>
+            <h3>Bs.{{unprod.costo}}</h3>
+          </ion-label>
+          <ion-reorder></ion-reorder>
+        </ion-item>
+    </ion-reorder-group>
+  </ion-list>
+      <ion-button (click)="guardaextra()"  expand="full" *ngIf="extras.length>0">Guardar orden extras</ion-button>
+    </div>
+   
+  
+</ion-content>
